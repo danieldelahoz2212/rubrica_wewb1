@@ -157,7 +157,7 @@ function Registrar(props) {
         setError(null)
     }
 
-    const cancelarEdit = () => {
+    const cancelarInfo = () => {
         setidCategoria(-1)
         setDescripcion('')
         setError(null)
@@ -178,7 +178,7 @@ function Registrar(props) {
                         <div className="mb-3">
                             <h6 className='text-light'>Categoria:</h6>
                             <select name="categoria" id="selectCategoria" className='form-select' onChange={opciones}>
-                                <option value={-1}>Seleccione una opcion</option>
+                                <option value={-1}>Selecione Una Categoria</option>
                                 {
                                     categorias.map((element, i) => (
                                         <option key={'categoria' + i} value={i}>{element.nombre}</option>
@@ -189,7 +189,7 @@ function Registrar(props) {
                         <div className="mb-3">
                             <h6 className='text-light'>Servicio:</h6>
                             <select name="opciones" id="selectOpciones" className='form-select' onChange={datosSelect}>
-                                <option value={-1}>Seleccione una opcion</option>
+                                <option value={-1}>Seleccione Un Servico</option>
                                 {
                                     idCategoria > -1 && (
                                         categorias[idCategoria].opciones.map((element, i) => (
@@ -213,7 +213,7 @@ function Registrar(props) {
                                     (<button className='btn btn-dark rounded-3 ingresar text-light'>Guardar</button>)
                             }
                             {
-                                modoEdicion ? (<button type='button' className='btn btn-dark rounded-3 ingresar text-light' onClick={() => { cancelarEdit() }}>Cancelar Edicion</button>) :
+                                modoEdicion ? (<button type='button' className='btn btn-dark rounded-3 ingresar text-light' onClick={() => { cancelarInfo() }}>Cancelar</button>) :
                                     (<button type='button' className='btn btn-dark rounded-3 ingresar text-light' onClick={() => cancelar()}>Cancelar</button>)
                             }
                         </div>
@@ -236,8 +236,9 @@ function Registrar(props) {
                                         </span>
                                     </div>
                                     <div className="d-grid gap-2 d-md-block align-items-end">
-                                        <button className="btn btn-danger me-2" type="button" onClick={() => eliminar(e.id)}>Eliminar</button>
-                                        <button className="btn btn-success" type="button" onClick={() => editar(e)}>Editar</button>
+                                        <button className="btn btn-dark rounded-3 ingresar text-light" type="button" onClick={() => eliminar(e.id)}>Eliminar</button>
+                                        <br />
+                                        <button className="btn btn-dark rounded-3 ingresar text-light" type="button" onClick={() => editar(e)}>Editar</button>
                                     </div>
                                 </li>
                             </ul>
