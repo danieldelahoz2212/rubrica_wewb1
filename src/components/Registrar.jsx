@@ -9,8 +9,8 @@ function Registrar(props) {
     const [descripcion, setDescripcion] = React.useState('')
     const [modoEdicion, setModoEdicion] = React.useState(false)
     const [lista, setLista] = React.useState([])
-    const [error, setError] = React.useState(null)
     const [idCategoria, setidCategoria] = React.useState(-1)
+    const [error, setError] = React.useState(null)
 
     const opciones = function (e) {
         const opcion = e.target.value
@@ -60,7 +60,6 @@ function Registrar(props) {
         }
         obtenerDatos()
     })
-
 
     const guardar = async (e) => {
         e.preventDefault()
