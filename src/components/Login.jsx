@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
-import { db, auth } from '../firebase'
+import { db, auth, createUserWithEmailAndPassword,signInWithEmailAndPassword } from '../firebase'
 import { useNavigate } from 'react-router-dom'
+import { addDoc, collection } from 'firebase/firestore'
 
 const Login = () => {
     //hooks
@@ -34,15 +36,15 @@ const Login = () => {
 
     const Login = React.useCallback(async () => {
         try {
-            const res = await auth.signInWithEmailAndPassword(email, contrasena)
+            const res = await signInWithEmailAndPassword(auth,email, contrasena)
             console.log(res.user)
             setEmail('')
             setContrasena('')
             setError('')
             navigate("/admin")
-        } catch (error) {
-            console.log(error.code)
-            if (error.code === 'auth/user-not-found') {
+        } catch (err) {
+            console.log(err)
+            if (err.code === 'auth/user-not-found') {
                 setError('Usuario no se encuentra registrado')
             }
             if (error.code === 'auth/wrong-password') {
@@ -53,23 +55,21 @@ const Login = () => {
 
     const registrar = React.useCallback(async () => {
         try {
-            const res = await auth.createUserWithEmailAndPassword(email, contrasena)
+            const res = await createUserWithEmailAndPassword(auth,email, contrasena)
             console.log(res.user)
-            await db.collection('usuario').doc(res.user.email).set(
-                {
-                    email: res.user.email,
-                    id: res.user.uid
-                }
-            )
+            await addDoc(collection(db, 'usuario'),{
+                email: res.user.email,
+                id: res.user.uid
+            })
             setEmail('')
             setContrasena('')
             setError(null)
-        } catch (error) {
-            console.log(error.code)
-            if (error.code === 'auth/email-already-in-use') {
+        } catch (err) {
+            console.log(err.code)
+            if (err.code === 'auth/email-already-in-use') {
                 setError('email ya fue registrado')
             }
-            if (error.code === 'auth/invalid-email') {
+            if (err.code === 'auth/invalid-email') {
                 setError('email no valido')
             }
         }

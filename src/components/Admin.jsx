@@ -1,6 +1,7 @@
 import React from 'react'
-import { db, auth } from '../firebase'
+import { auth } from '../firebase'
 import { useNavigate } from 'react-router-dom'
+import Registrar from './Registrar'
 
 const Admin = () => {
   const navigate = useNavigate()
@@ -17,9 +18,9 @@ const Admin = () => {
   return (
     <div>
       {
-        user && (
-          <h2>Usuario Conectado: <br /><i>{user.email}</i></h2>
-        )
+        user &&(
+        <Registrar user={user} />
+        )  
       }
     </div>
   )
